@@ -117,31 +117,8 @@ $Region = $locations.Get($rand).Location
  $success = 0
  $tried_list = New-Object Collections.Generic.List[string]
 
- while ($success -ne 1){
-    write-host "Trying $Region"
-    $capability = Get-AzSqlCapability -LocationName $Region
-    if($capability.Status -eq "Available")
-    {
-        $success = 1
-        write-host "Using $Region"
-    }
-    else
-    {
-        $success = 0
-        $tried_list.Add($Region)
-        $locations = $locations | Where-Object {$_.Location -notin $tried_list}
-        if ($locations.Count -ne 1)
-        {
-            $rand = (0..$($locations.Count - 1)) | Get-Random
-            $Region = $locations.Get($rand).Location
-        }
-        else {
-            Write-Host "Couldn't find an available region for deployment."
-            Write-Host "Sorry! Try again later."
-            Exit
-        }
-    }
-}
+$Region = "eastus"
+Write-Host "Using region: $Region"
 
 # Ensure that all the required providers have completed registration
 $max_retries = 5
