@@ -98,7 +98,7 @@ $resourceGroupName = "dp203-$suffix"
 
 # Choose a random region
 Write-Host "Finding an available region. This may take several minutes...";
-$delay = 0, 30, 60, 90, 120 | Get-Random
+$delay = 0, 30 | Get-Random
 Start-Sleep -Seconds $delay # random delay to stagger requests from multi-student classes
 $preferred_list = "australiaeast","centralus","southcentralus","eastus2","northeurope","southeastasia","uksouth","westeurope","westus","westus2"
 $locations = Get-AzLocation | Where-Object {
@@ -114,15 +114,15 @@ $Region = $locations.Get($rand).Location
 
 # Test for subscription Azure SQL capacity constraints in randomly selected regions
 # (for some subsription types, quotas are adjusted dynamically based on capacity)
- $success = 0
- $tried_list = New-Object Collections.Generic.List[string]
+$success = 0
+$tried_list = New-Object Collections.Generic.List[string]
 
 $Region = "centralus"
 Write-Host "Using region: $Region"
 
 # Ensure that all the required providers have completed registration
-$max_retries = 5
-$wait_time = 30
+$max_retries = 20
+$wait_time = 5
 foreach ($provider in $provider_list) {
     $retryCount = 0
     while ($retryCount -lt $max_retries) {
