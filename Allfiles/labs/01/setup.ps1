@@ -69,8 +69,8 @@ while ($complexPassword -ne 1)
 # Register resource providers
 Write-Host "Registering resource providers...";
 $provider_list = "Microsoft.Synapse", "Microsoft.Sql", "Microsoft.Storage", "Microsoft.Compute"
-$maxRetries = 5
-$waittime = 30
+$maxRetries = 20
+$waittime = 5
 
 foreach ($provider in $provider_list) {
     $retryCount = 0
@@ -117,7 +117,7 @@ $Region = $locations.Get($rand).Location
  $success = 0
  $tried_list = New-Object Collections.Generic.List[string]
 
-$Region = "eastus"
+$Region = "centralus"
 Write-Host "Using region: $Region"
 
 # Ensure that all the required providers have completed registration
