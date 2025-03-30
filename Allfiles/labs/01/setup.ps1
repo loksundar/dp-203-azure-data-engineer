@@ -188,6 +188,7 @@ New-AzResourceGroupDeployment -ResourceGroupName $resourceGroupName `
   -sqlPassword $sqlPassword `
   -uniqueSuffix $suffix `
   -Force
+  
 
 # Pause Data Explorer pool
 #write-host "Pausing the $adxpool Data Explorer Pool..."
